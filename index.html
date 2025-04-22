@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset='utf-8' />
+  <title>Carto'Med Grand-Ouest SIGAT</title>
+
+  <script src="https://unpkg.com/maplibre-gl@^5.1.1/dist/maplibre-gl.js"></script>
+  <link href="https://unpkg.com/maplibre-gl@^5.1.1/dist/maplibre-gl.css" rel="stylesheet" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <link href="style.css" rel="stylesheet" />
+
+  <link rel="icon" href="https://raw.githubusercontent.com/Charly-Ciant/data/refs/heads/main/iconmedecin.png" type="image/png">
+
+</head>
+
+<body>
+
+  <div id="bandeau">
+    <h1>Cartographie des professionnels de santé libéraux dans le Grand-Ouest</h1><img
+      src="https://raw.githubusercontent.com/Charly-Ciant/data/refs/heads/main/iconmedecin.png" width=6%>
+  </div>
+
+  <div id="map"></div>
+
+  <div id="double-bouton">
+    <div class="btn btn-scenario">Itinéraire</div>
+    <div class="separator"></div>
+    <div class="btn btn-naviguer">Naviguer</div>
+  </div>
+
+  <div id="info-fenetre">
+    <p class="texte-medium">Trouver un médecin à côté de chez vous en trois cliques grâce à Carto'Med Grand-Ouest !</p>
+    <p class="texte-petit">L’option <strong>Itinéraire</strong> permettra de trouver les professionnels de santé les
+      plus proches de chez vous et le chemin le plus court pour y accéder.</p>
+    <p class="texte-petit">L’option <strong>Naviguer</strong> vous permettra de parcourir librement la carte et de
+      sélectionner les types de professionnels de santé souhaités.</p>
+
+    <div id="credits">
+      <hr>
+      <p class="texte-petit">Ce site est une cartographie web de la localisation des <strong>professionnels de santé libéraux</strong> de moins de 60 ans dans le <strong>Grand-Ouest</strong> (Bretagne, Pays de la Loire, Normandie). </p>
+      <p class="texte-petit">Ce projet a été réalisé en 2025 dans le cadre des cours de Webmapping du master <strong>SIGAT</strong> à Rennes par <strong>Charly CIANTAR, Sacha LEVASSEUR, Tanguy POIRIER et Lamine GUEYE.</strong> </p>
+      <p class="texte-petit">Les données sont issues de l’<strong>Annuaire Santé de la CPAM</strong> disponible sur <a href="https://public.opendatasoft.com/explore/dataset/medecins/table/" target="_blank">OpenDataSoft</a> et le fond de carte d’<a href="https://openmaptiles.geo.data.gouv.fr/" target="_blank">OpenMapTiles</a> basé sur OSM. Le site et les données sont hébergés sur GitHub. La carte se base sur la librairie opensource <a href=" https://maplibre.org/" target="_blank">MapLibreGL JS</a>. La bibliothèque Javascript <a href="https://jquery.com/" target="_blank">JQuery</a> et le calculateur d’itinéraire <a href="https://project-osrm.org/" target="_blank">Project OSRM</a> sont aussi utilisés.</p>
+        
+    </div>
+  </div>
+
+
+  <div id="fenetre-scenario">
+    <h2>1. Sélectionnez un type de médecin :</h2>
+    
+    <select id="paramChoixProf_itineraire" class="menu_deroul">
+      <option value="">Sélectionner une profession</option>
+    </select>
+
+    <h2>2. Placez le point de départ en cliquant sur le bouton "Placer un point" puis en cliquant sur la carte.</h2> 
+    <h2>3. Cliquez sur le bouton "Récupérer le point" puis calculez l'itinéraire</h2>
+
+    <div id="boutons_iti">
+    <button id="toggleButton" class="bouton_iti">Placer un point</button>
+    <button id="executeButton" class="bouton_iti">Calcul d'itinéraire</button>
+    </div>
+
+    <div id="message_itineraire"></div>
+
+  </div>
+
+  <!-- affichage masqué de la balise qui contient le gif pour le chargement -->
+  <div id="loader" style="display: none;">
+    <img id="chargement" src="https://raw.githubusercontent.com/Charly-Ciant/data/refs/heads/main/chargement.gif"
+      width=10%>
+  </div>
+
+
+
+  <div id="fenetre-naviguer" class="fenetre">
+    <h2>Type de médecins</h2>
+    <select id="paramChoixProf_naviguer" class="menu_deroul">
+      <option value="">Tous les médecins</option>
+    </select>
+
+
+
+
+    <h2>Zoomer sur une ville</h2>
+    <div class="buttons-container">
+      <button class="city-btn" id='Rennes'>Rennes</button>
+      <button class="city-btn" id='Nantes'>Nantes</button>
+      <button class="city-btn" id='Rouen'>Rouen</button>
+      <button class="city-btn" id='Angers'>Angers</button>
+      <button class="city-btn" id='Caen'>Caen</button>
+      <button class="city-btn" id='Brest'>Brest</button>
+    </div>
+
+  </div>
+
+
+
+
+  <script src="script.js"></script>
+
+</body>
+
+</html>

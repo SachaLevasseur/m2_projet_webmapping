@@ -1,0 +1,577 @@
+body {
+    margin: 0;
+}
+
+#map {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 0;
+
+}
+
+
+
+/* BANDEAU */
+#bandeau {
+    position: fixed;
+    top: 10px;
+    width: 700px;
+    /* Départ invisible */
+    height: 75px;
+    background: #179f91ff;
+    z-index: 10;
+    border-radius: 0 50px 50px 0;
+    /* Arrondi uniquement à droite */
+    overflow: hidden;
+    /* Assure que rien ne dépasse pendant l'animation */
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Poppins, sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    opacity: 0;
+    /* Initialement invisible */
+    transform: none;
+    /* Position initiale à gauche hors de l'écran */
+    transition: width 1s ease, opacity 1s ease, transform 1s ease;
+    /* Transition pour rendre l'effet fluide */
+}
+
+#bandeau h1 {
+    font-family: Poppins, sans-serif;
+    font-size: 28px;
+    font-weight: bold;
+    text-align: left;
+    margin: 0;
+    opacity: 0;
+    /* Texte invisible au départ */
+    animation: texte-animation 1s 1s ease-out forwards;
+    /* L'animation du texte commence après 1 seconde */
+}
+
+#bandeau img {
+    position: fixed;
+    right: 1%
+}
+
+
+
+
+@keyframes texte-animation {
+    0% {
+        opacity: 0;
+        transform: translateX(-60px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(-40px);
+        /* Le texte se place à sa position normale */
+    }
+}
+
+
+#bandeau.show {
+    width: 1170px;
+    /* Largeur finale */
+    opacity: 1;
+    /* Visible à la fin */
+    transform: translateX(0);
+    /* Revenir à la position normale */
+}
+
+
+
+
+
+
+
+/* DOUBLE-BOUTON */
+#double-bouton {
+    position: absolute;
+    top: 110px;
+    left: 20px;
+    display: flex;
+    font-family: Poppins, sans-serif;
+    align-items: center;
+    background: #179f91ff;
+    border-radius: 5px;
+    overflow: hidden;
+    padding: 5px 15px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    /* Initialement invisible */
+    animation: fadeIn 1s forwards;
+    /* Effet d'apparition */
+
+}
+
+/* Boutons */
+#double-bouton .btn {
+    flex: 1;
+    padding: 15px 70px;
+    cursor: pointer;
+    font-size: 25px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    position: relative;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+
+/* Effet au survol */
+#double-bouton .btn:hover {
+    background: rgba(0, 0, 0, 0.05);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    transform: scale(1.15);
+    border-color: transparent;
+}
+
+/* Séparateur */
+#double-bouton .separator {
+    width: 3px;
+    height: 30px;
+    background: white;
+    position: absolute;
+    top: 50%;
+    left: 268px;
+    transform: translate(-50%, -50%);
+    transition: left 0.3s ease-in-out;
+}
+
+
+/* Déplacement du séparateur */
+#double-bouton:hover .separator {
+    left: 46.5%;
+    /* Position par défaut */
+}
+
+#double-bouton .btn:first-child:hover~.separator {
+    left: 53.5%;
+}
+
+#double-bouton .btn:last-child:hover~.separator {
+    left: 200px;
+}
+
+
+
+
+/* FENETRE D INFORMATION */
+
+#info-fenetre {
+    position: absolute;
+    top: 200px;
+    left: 20px;
+    width: 511px;
+    /* Plus large */
+    background-color: #f4f4f4;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    /* Initialement invisible */
+    animation: fadeIn 1.5s forwards;
+    /* Effet d’apparition après un délai */
+}
+
+/* Textes */
+.texte-medium {
+    animation: fadeIn 1.5s forwards;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    margin-top: 0px;
+    font-family: Poppins, sans-serif;
+    color: #63395b;
+}
+
+.texte-petit {
+    animation: fadeIn 1.5s forwards;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 5px;
+    font-family: Poppins, sans-serif;
+    color: #63395b;
+}
+
+
+/* Animation pour l'apparition en douceur */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+
+
+
+
+
+
+
+
+/* FENETRE ITINERAIRE (SCENARIO) */
+
+#fenetre-scenario {
+    position: absolute;
+    top: 200px;
+    /* En dessous du double bouton */
+    left: 20px;
+    width: 511px;
+    background-color: #f4f4f4;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    display: none;
+    /* Commence cachée */
+    opacity: 0;
+    /* Commence invisible pour l'effet d'apparition */
+    transition: opacity 0.5s ease-in-out;
+    /* Effet de fondu */
+}
+
+#fenetre-scenario h2 {
+    font-size: 14px;
+    margin-bottom: 10px;
+    color: #63395b;
+    font-family: Poppins, sans-serif;
+}
+
+#search-commune {
+    width: 80%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    font-family: Poppins, sans-serif;
+}
+
+
+
+
+
+
+/* FENETRE NAVIGUER */
+
+#fenetre-naviguer {
+    position: absolute;
+    top: 200px;
+    left: 20px;
+    width: 511px;
+    background-color: #f4f4f4;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    display: none;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    font-family: Poppins, sans-serif;
+}
+
+#fenetre-naviguer h2 {
+    font-size: 14px;
+    margin-bottom: 10px;
+    color: #63395b;
+}
+
+.dropdownnav {
+    position: relative;
+    width: 100%;
+}
+
+.dropdown-btnnav {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    cursor: pointer;
+    text-align: left;
+    font-family: Poppins, sans-serif;
+    color: #959595;
+}
+
+.dropdown-contentnav {
+    display: none;
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    width: 100%;
+    z-index: 1;
+}
+
+.dropdown-contentnav label {
+    display: block;
+    padding: 5px;
+}
+
+.dropdownnav.active .dropdown-contentnav {
+    display: block;
+}
+
+
+
+
+.dropdownitin {
+    position: relative;
+    width: 100%;
+}
+
+.dropdown-btnitin {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    cursor: pointer;
+    text-align: left;
+    font-family: Poppins, sans-serif;
+    color: #959595;
+}
+
+.dropdown-contentitin {
+    display: none;
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    width: 100%;
+    z-index: 1;
+}
+
+.dropdown-contentitin label {
+    display: block;
+    padding: 5px;
+}
+
+.dropdownitin.active .dropdown-contentitin {
+    display: block;
+}
+
+.dropdownitin {
+    font-family: 'Poppins', sans-serif;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.buttons-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 20px;
+    /* Espacement entre les boutons */
+    margin-top: 10px;
+    margin-left: 73px;
+    padding: 20px;
+    justify-content: center;
+    /* Centre la grille */
+    max-width: 300px;
+    /* Ajuste la largeur pour éviter l'étirement */
+
+}
+
+.city-btn {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    color: #63395b;
+    /* Rose foncé */
+    background-color: #f8e1ec;
+    /* Rose pâle */
+    border: 2px solid #63395b;
+    /* Bordure assortie */
+    border-radius: 8px;
+    /* Coins arrondis */
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    text-transform: uppercase;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.city-btn:hover {
+    background-color: #63395b;
+    /* Devient rose foncé */
+    color: white;
+    /* Texte en blanc */
+    transform: scale(1.1);
+    /* Léger agrandissement */
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+    /* Effet d’ombre plus prononcé */
+}
+
+
+#search-ville {
+    width: 95%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    font-family: Poppins, sans-serif;
+}
+
+
+
+
+
+/* --------- CSS POUR POPUP -------- */
+
+.maplibregl-popup-content {
+    width: 300px;
+    border-radius: 8px !important;
+    padding: 0 !important;
+    font-family: Poppins, sans-serif;
+    font-size: 14px;
+}
+
+.maplibregl-popup-content .popup-body {
+    margin: 10px;
+}
+
+/* Bandeau en haut de la popup */
+.maplibregl-popup .popup-header {
+    padding: 1px;
+    background-color: #106b61;
+    color: white;
+    text-align: center;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    line-height: 1;
+    overflow-wrap: break-word;
+    /* pour casser les mots qui dépassent de la fenetre */
+}
+
+.maplibregl-popup-close-button {
+    color: white
+}
+
+/*Animation fade in Popup*/
+.maplibregl-popup {
+    opacity: 1;
+    animation-name: fadeInOpacity;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in;
+    animation-duration: 0.2s;
+}
+
+@keyframes fadeInOpacity {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 0.75;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+/* emplacement du gif de chargement de l'itinéraire */
+#loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.6);
+    /* optionnel : fond semi-transparent */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+#loader img {
+    width: 80px;
+    /* ou ce que tu veux */
+    height: auto;
+}
+
+
+
+.menu_deroul {
+    padding: 10px;
+    font-size: 16px;
+    font-family: Poppins, sans-serif;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    color: #333;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    appearance: none; /* enlève le style natif sur certains navigateurs */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+  }
+  
+  .menu_deroul:hover {
+    border-color: #888;
+    background-color: #f0f0f0;
+  }
+  
+  .menu_deroul:focus {
+    outline: none;
+    border-color: #106b61;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+
+
+
+
+
+
+  .bouton_iti {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-family: Poppins, sans-serif;
+    border: none;
+    border-radius: 8px;
+    background-color: #179f91;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .bouton_iti:hover:not(:disabled) {
+    background-color: #106b61;
+    transform: scale(1.02);
+  }
+  
+  .bouton_iti:disabled {
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+  }
+
+  #boutons_iti{
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* espace entre les boutons */
+  }
